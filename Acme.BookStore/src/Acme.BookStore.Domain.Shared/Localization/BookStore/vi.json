@@ -1,0 +1,31 @@
+{
+  "culture": "vi",
+  "texts": {
+    "Menu:Home": "Trang chủ",
+    "Welcome": "Chào mừng bạn",
+    "LongWelcomeMessage": "Chào mừng bạn đến ứng dụng. Đây là một dự án khởi nghiệp dựa trên khung ABP. Để biết thêm thông tin, hãy truy cập abp.io.",
+    "Menu:BookStore": "Book Store",
+    "Menu:Books": "Books",
+    "Actions": "Actions",
+    "Close": "Close",
+    "Delete": "Xóa",
+    "Edit": "Sửa",
+    "PublishDate": "Ngày xuất bản",
+    "NewBook": "Sách mới",
+    "Name": "Tên",
+    "Type": "Kiểu",
+    "Price": "Giá",
+    "CreationTime": "Thời gian tạo",
+    "AreYouSure": "Bạn chắc chứ?",
+    "AreYouSureToDelete": "Bạn chắc là xóa thằng này không?",
+    "Enum:BookType.0": "Không xác định",
+    "Enum:BookType.1": "Phiêu lưu",
+    "Enum:BookType.2": "Sinh học",
+    "Enum:BookType.3": "Viễn tưởng",
+    "Enum:BookType.4": "Quái vật",
+    "Enum:BookType.5": "Kinh dị",
+    "Enum:BookType.6": "Khoa học",
+    "Enum:BookType.7": "Khoa học viễn tưởng",
+    "Enum:BookType.8": "Thơ"
+  }
+}
