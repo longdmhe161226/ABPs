@@ -1,7 +1,14 @@
 using Acme.BookStore.Books;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Threading.Tasks;
+using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form;
 
 namespace Acme.BookStore.Web.Pages.Books
 {
@@ -9,7 +16,8 @@ namespace Acme.BookStore.Web.Pages.Books
     {
 
         [BindProperty]
-        public CreateUpdateBookDto Book {  get; set; }
+        public CreateBookViewModel Book {  get; set; }
+        public List<SelectListItem> Authors { get; set; }
 
         private readonly IBookAppService _bookAppService;
 
@@ -18,15 +26,43 @@ namespace Acme.BookStore.Web.Pages.Books
             _bookAppService = bookAppService;
         }
 
-        public void OnGet()
+        public async void OnGetAsync()
         {
-            Book = new CreateUpdateBookDto();
+            Book = new CreateBookViewModel();
+
+            var authorLookup = await _bookAppService.GetAuthorLookupAsync();
+            Authors = authorLookup.Items
+                .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
+                .ToList();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            await _bookAppService.CreateAsync(Book);
+            await _bookAppService.CreateAsync(
+                ObjectMapper.Map<CreateBookViewModel, CreateUpdateBookDto>(Book)
+                );
             return NoContent();
+        }
+
+        public class CreateBookViewModel 
+        {
+            [Required]
+            [StringLength(128)]
+            public string Name { get; set; } = string.Empty;
+
+            [Required]
+            public BookType Type { get; set; } = BookType.Undefined;
+
+            [Required]
+            [DataType(DataType.Date)]
+            public DateTime PublishDate { get; set; } = DateTime.Now;
+
+            [Required]
+            public float Price { get; set; }
+
+            [SelectItems(nameof(Authors))]
+            [DisplayName("Author")]
+            public Guid AuthorId { get; set; }
         }
     }
 }
